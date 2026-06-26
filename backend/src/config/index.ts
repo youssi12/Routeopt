@@ -4,13 +4,14 @@ dotenv.config();
 export const config = {
   env: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.PORT || '4000', 10),
-  db: {
-    host:     process.env.DB_HOST     || 'localhost',
-    port:     parseInt(process.env.DB_PORT || '3306', 10),
-    user:     process.env.DB_USER     || 'routeopt',
-    password: process.env.DB_PASSWORD || 'routeopt_pass',
-    name:     process.env.DB_NAME     || 'routeopt',
-  },
+   db: {
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '3306', 10),
+  user: process.env.DB_USER || 'routeopt',
+  password: process.env.DB_PASSWORD || 'routeopt_pass',
+  name: process.env.DB_NAME || 'routeopt',
+  ssl: process.env.DB_SSL === 'true',
+},
    redis: {
   url: process.env.REDIS_URL,
   host: process.env.REDIS_HOST || 'localhost',
