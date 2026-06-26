@@ -2,12 +2,17 @@ import Redis from 'ioredis';
 import { config } from '../config';
 import { logger } from '../utils/logger';
 
-export const redis = new Redis({
-  host: config.redis.host,
-  port: config.redis.port,
-  retryStrategy: (times) => Math.min(times * 50, 2000),
-  lazyConnect: true,
-});
+ export const redis = config.redis.url
+  ? new Redis(config.redis.url, {
+      retryStrategy: (times) => Math.min(times * 50, 2000),
+      lazyConnect: true,
+    })
+  : new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
+      retryStrategy: (times) => Math.min(times * 50, 2000),
+      lazyConnect: true,
+    });
 
 redis.on('connect', () => logger.info('✅ Redis connected'));
 redis.on('error', (err) => logger.error('Redis error', err));
